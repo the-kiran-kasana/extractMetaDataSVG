@@ -1,4 +1,5 @@
-package extract.meta_data;
+
+package metaInformation.svgImageProcessor.Extract;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +53,7 @@ public class FileUploadController {
                 final Element filteredSvgElement = removeImageNodes(svgElement);
 
                 String outPut = convertSVGtoJsonArray(filteredSvgElement, cssClassesToPropertiesMap);
-                final String finalString = "{ \"\"text_fields\"\": [" + outPut + "] }";
+                final String finalString = "{ \"text_fields\": [" + outPut + "] }";
 
                 saveToRTF(finalString, filePath);
                 model.addAttribute("absoluteFilePath", filePath);
@@ -120,40 +122,14 @@ public class FileUploadController {
         return classToMapOfProperties;
     }
 
-
     private Element removeImageNodes(Element svgElement) {
         // Select image elements within the svg
         Elements imageElements = svgElement.select("image");
-
         for (Element imageElement : imageElements) {
             imageElement.remove();
         }
         return svgElement;
     }
-
-
-
-
-    // private Element removeImageNodes(Element svgElement) {
-    //     for (Element child : svgElement.children()) {
-    //         // Recursively check child elements
-    //         removeImageNodes(child);
-
-    //         // Check if the child element is not a <text> tag and has no <text> descendants
-    //         if (!"text".equals(child.tagName()) && child.select("text").isEmpty()) {
-    //             // Move the text content of the child element to its parent
-    //             svgElement.appendText(child.text());
-    //             // Remove the child element
-    //             child.remove();
-    //         }
-    //     }
-    //     return svgElement;
-    // }
-
-
-
-
-
 
     private void saveToRTF(final String fileContent, final String fileAbsolutePath) {
         try (final FileOutputStream fos = new FileOutputStream(fileAbsolutePath);
@@ -193,6 +169,7 @@ public class FileUploadController {
 
 
 
+
     private String convertSVGtoJsonArray(Element element, final Map<String, Map<String, String>> classesToPropertiesMap) {
         StringBuilder jsonArrayBuilder = new StringBuilder();
         boolean isFirstElement = true;
@@ -216,10 +193,17 @@ public class FileUploadController {
                         String[] matrixValues = transformValue.substring(transformValue.indexOf("(") + 1, transformValue.indexOf(")")).split(" ");
                         double translateX = Double.parseDouble(matrixValues[4].replaceAll(",", ""));
                         double translateY = Double.parseDouble(matrixValues[5].replaceAll(",", ""));
+                        System.out.println(translateX);
+                        System.out.println(translateY);
 
-                        // Add translation values to JSON
-                        jsonNode.put("left", translateX + "px");
-                        jsonNode.put("top", translateY + "px");
+
+                        String leftValue = String.format("%.0f", translateX);
+                        String topValue = String.format("%.0f", translateY);
+
+                        // Append the decimal part to the JSON key
+                        jsonNode.put("left", leftValue.substring(leftValue.indexOf('.') + 1));
+                        jsonNode.put("top", topValue.substring(topValue.indexOf('.') + 1));
+
                     }
                 } else {
                     final String attrFinalName = getAttributeName(attr.getKey());
@@ -255,14 +239,4 @@ public class FileUploadController {
 
         return  jsonArrayBuilder.toString();
     }
-
-
-
-
-
-
-
-
-
 }
-

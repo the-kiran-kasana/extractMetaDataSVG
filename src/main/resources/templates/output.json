@@ -1,8 +1,8 @@
 {
   "text_fields": [
     {
-      "top":"794.991px",
-      "left":"373.2002px",
+      "top":794,
+      "left":373,
       "tag_type":"text",
       "tag_name":"text",
       "text_content":"Avail big discounts",
@@ -10,8 +10,8 @@
       "font-family":"'BebasNeue'"
     },
     {
-      "top":"1154.4468px",
-      "left":"543.0365px",
+      "top":1154,
+      "left":543,
       "tag_type":"text",
       "tag_name":"text",
       "text_content":"CALL US",
@@ -19,8 +19,8 @@
       "font-family":"'BebasNeue'"
     },
     {
-      "top":"892.124px",
-      "left":"239.1897px",
+      "top":892,
+      "left":239,
       "tag_type":"text",
       "tag_name":"text",
       "text_content":"on Car Service & Repair!",
@@ -29,8 +29,8 @@
       "fill":"#B62514"
     },
     {
-      "top":"973.4331px",
-      "left":"153.48px",
+      "top":973,
+      "left":153,
       "tag_type":"text",
       "tag_name":"text",
       "text_content":"Best prices in the city for all",
@@ -38,8 +38,8 @@
       "font-family":"'Montserrat-Bold'"
     },
     {
-      "top":"1045.4331px",
-      "left":"306.68px",
+      "top":1045,
+      "left":306,
       "tag_type":"text",
       "tag_name":"text",
       "text_content":"types of car repair.",
