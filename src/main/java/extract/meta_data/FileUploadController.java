@@ -1,5 +1,5 @@
 
-package metaInformation.svgImageProcessor.Extract;
+package extract.meta_data;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -24,8 +24,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class FileUploadController {
